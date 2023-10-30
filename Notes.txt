@@ -1,0 +1,1 @@
+ npx(разом Node.js and NPM) create-react-app frontend(цільова папка) - скачує ш встановлює бібліотеку локально, одноразово
