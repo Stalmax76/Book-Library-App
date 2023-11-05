@@ -33,6 +33,23 @@ const BookList = () => {
     const matchesFavorite = onlyFavoriteFilter ? book.isFavorite : true;
     return matchesTitle && matchesAuthor && matchesFavorite;
   });
+
+  const highLighMatch = (text, filter) => {
+    if (!filter) return text;
+
+    const regex = new RegExp(`(${filter})`, 'gi');
+
+    return text.split(regex).map((substing, i) => {
+      if (substing.toLowerCase() === filter.toLowerCase()) {
+        return (
+          <span key={i} className="highlight">
+            {substing}
+          </span>
+        );
+      }
+      return substing;
+    });
+  };
   return (
     <div className="app-block book-list">
       <h2>Book List</h2>
@@ -43,8 +60,8 @@ const BookList = () => {
           {filteredBooks.map((book, i) => (
             <li key={book.id}>
               <div className="book-info">
-                {++i}. Book is: <i> {book.title} </i>by :{' '}
-                <strong>{book.author}</strong>
+                {++i}. {highLighMatch(book.title, titleFilter)} by :{' '}
+                <strong>{highLighMatch(book.author, authorFilter)}</strong>
               </div>
               <div className="book-actions">
                 <span onClick={() => handleToggleFavorite(book.id)}>
